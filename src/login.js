@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { Grid, Segment } from 'semantic-ui-react'
+
 class Login extends Component {
   state={
     match:false
@@ -37,23 +39,27 @@ render () {
 
   return (
   <div className="content">
-    <div className="login_page">
-      <div className="loginHeading">
-      <h4>Existing Users</h4>
-      <h6>Forgot Password?</h6>
-      </div>
+<Grid>
+<Grid.Row>
+<div className="login_page">
+  <div className="loginHeading">
+  <h4>Existing Users</h4>
+  <h6>Forgot Password?</h6>
+  </div>
 
-      <form id="loginForm">
+  <form id="loginForm">
 
-      <input id="userid" type="text" placeholder="sample@sample.com"/>
+  <input id="userid" type="text" placeholder="sample@sample.com"/>
 
-      <input id="pwd" type="text" placeholder="******"/>
-    <input id="check" type="checkbox" />
+  <input id="pwd" type="text" placeholder="******"/>
+<input id="check" type="checkbox" />
 <h6>Remember Me</h6>
-      </form>
-      <button id="submit" type="button" onClick={this.handleSubmit}>Login</button>
+  </form>
+  <button id="submit" type="button" onClick={this.handleSubmit}>Login</button>
 
 </div>
+</Grid.Row>
+<Grid.Row>
 <div className="footer">
 <table>
 <tr>
@@ -89,6 +95,13 @@ render () {
 
 </table>
 </div>
+</Grid.Row>
+</Grid>
+
+
+
+
+
 
 
   </div>

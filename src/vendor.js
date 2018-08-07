@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import PieChart from 'react-minimal-pie-chart';
 import BarChart from 'react-bar-chart';
+import { Grid, Segment } from 'semantic-ui-react'
+import {Pie} from 'react-chartjs-2';
 import {TablePagination} from "react-pagination-table";
+import {Bar} from 'react-chartjs-2';
 import Modal from 'react-modal';
 class Vendor extends Component {
 state={
@@ -65,153 +68,252 @@ this.props.approvals.map((app)=>{
     });
   console.log(reportFinal)
 
+//data for pie chart
+  const pieData=  {
+	labels: [
+		'Registered',
+		'Unregistered'
+	],
+	datasets: [{
+		data: [registered_length, this.props.vendors.length-registered_length ],
+		backgroundColor: [
+		'#E38627',
+		'#C13C37'
+
+		],
+		hoverBackgroundColor: [
+		'#FF6384',
+		'#36A2EB'
+
+		]
+	}]
+};
+
+//data for bar chart
+console.log(bar_data);
+console.log(uniqueGroups);
+const bar= {
+  labels: uniqueGroups,
+  datasets:[
+    {
+      data: bar_data
+    }
+  ]
+};
+
     return (
       <div className="content">
-      <div className="diagram">
-        <div className="pie-chart">
+      <Grid stackable columns={2}>
+      <Grid.Row>
+    <Grid.Column>
+      <Segment>
+      <div className="pie-chart">
         <h5> Registration status as of </h5>
-          <PieChart
-            data={[
-              { value: registered_length, color: '#E38627' },
-              { value: this.props.vendors.length-registered_length, color: '#C13C37' }
-
-            ]}
+          <Pie
+            data={pieData}
             radius={25 }
             cx={50}
             cy={30}
-            labels={ true }
+            //labels={ true }
 
           />
         </div>
-        <div className="bar-chart">
+      </Segment>
+    </Grid.Column>
+    <Grid.Column>
+      <Segment>
+      <div className="bar-chart">
         <h5> Vendor Sub groups  </h5>
 
-          <BarChart
+          <Bar
             grid
-            data= {data}
+            data= {bar}
             width={0.50*width}
-            height={0.30*height}
+            height={0.32*height}
             margin={margin}
+            options={{
+            maintainAspectRatio: true
+          }}
 
           />
         </div>
-      </div>
-  <div className="approvals">
-    <h5> My pending approvals <span><button onClick={this.openModal}>Show Past Vendor Approvals</button> </span></h5>
-    {/*<table>
-      <tr>
-        <th>Date</th>
-        <th>Approval Name</th>
-        <th>Vendor Name</th>
-        <th>Action</th>
-      </tr>
-      {this.props.approvals.map((approval)=>(
-        <tr>
-          <td>{approval.approval_date}</td>
-          <td>{approval.approval_name}</td>
-          <td>{approval.vendor_name}</td>
-          <td>{approval.approval_status}</td>
-        </tr>
-        )
-      )}
-      <Pagination
-      activePage={this.state.activePage}
-      itemsCountPerPage={1}
-      totalItemsCount={4}
-      pageRangeDisplayed={2}
-      onChange={num=>this.handlePageChange(num)}
+      </Segment>
+    </Grid.Column>
+    </Grid.Row>
+    <Grid.Row>
+    <div className="approvals">
+      <h5> My pending approvals <span><button onClick={this.openModal}>Show Past Vendor Approvals</button> </span></h5>
+
+
+  {(this.props.approvals.length) &&
+      <TablePagination
+
+                  headers={ ["Date","Approval Name","Vendor name","Action"]}
+                  data={ approvalFinal }
+                  columns="approval_date.approval_name.vendor_name.action"
+                  perPageItemCount={ 4 }
+                  totalCount={ this.props.approvals.length }
+                  arrayOption={ [["size", 'all', ' ']] }
+                  partialPageCount={5}
+                  nextPageText=">>"
+                  prePageText="<<"
+
       />
-    </table>
-    */}
+    }
+      <Modal
+        isOpen={this.state.showModal}
+             contentLabel="onRequestClose Example"
+             onRequestClose={this.closeModal}
+             shouldCloseOnOverlayClick={false}
+             className="Modal"
+             overlayClassName="Overlay"
+             >
 
-{(this.props.approvals.length) &&
+             <h4>Approvals History <span><button onClick={this.closeModal} className="closeButton">x</button> </span></h4>
+
+              {(this.props.approvals.length) &&
+                  <TablePagination
+
+                              headers={ ["Date","Approval Name","Vendor name","Action"]}
+                              data={ this.props.approvals }
+                              columns="approval_date.approval_name.vendor_name.approval_status"
+                              perPageItemCount={ 4 }
+                              totalCount={ this.props.approvals.length }
+                              arrayOption={ [["size", 'all', ' ']] }
+                              partialPageCount={5}
+                              nextPageText=">>"
+                              prePageText="<<"
+
+
+                  />
+                }
+      </Modal>
+    </div>
+    </Grid.Row>
+    <Grid.Row>
+    <div className="reports">
+    <h5> My reports </h5>
+    {(this.props.reports.length) &&
     <TablePagination
 
-                headers={ ["Date","Approval Name","Vendor name","Action"]}
-                data={ approvalFinal }
-                columns="approval_date.approval_name.vendor_name.action"
-                perPageItemCount={ 4 }
-                totalCount={ this.props.approvals.length }
+                headers={ ["Report Name","Report Description","Report type","Updated On","Updated by",""]}
+                data={ reportFinal }
+                columns="report_name.report_description.report_type.updated_on.updated_by.action"
+                perPageItemCount={4 }
+                totalCount={ this.props.reports.length }
                 arrayOption={ [["size", 'all', ' ']] }
-                partialPageCount={5}
+                partialPageCount={1}
                 nextPageText=">>"
                 prePageText="<<"
 
     />
   }
-    <Modal
-      isOpen={this.state.showModal}
-           contentLabel="onRequestClose Example"
-           onRequestClose={this.closeModal}
-           shouldCloseOnOverlayClick={false}
-           className="Modal"
-           overlayClassName="Overlay"
-           >
+  {this.addEdit()}
 
-           <h4>Approvals History <span><button onClick={this.closeModal} className="closeButton">x</button> </span></h4>
+    </div>
+    </Grid.Row>
+  </Grid>
 
-{(this.props.approvals.length) &&
-    <TablePagination
-
-                headers={ ["Date","Approval Name","Vendor name","Action"]}
-                data={ this.props.approvals }
-                columns="approval_date.approval_name.vendor_name.approval_status"
-                perPageItemCount={ 4 }
-                totalCount={ this.props.approvals.length }
-                arrayOption={ [["size", 'all', ' ']] }
-                partialPageCount={5}
-                nextPageText=">>"
-                prePageText="<<"
-
-
-    />
-  }
-    </Modal>
-  </div>
-  <div className="reports">
-  <h5> My reports </h5>
-  {/*<table>
-    <tr>
-      <th>Report Name</th>
-      <th>Report Description</th>
-      <th>Report Type</th>
-      <th>Updtated on</th>
-      <th>Updtated By</th>
-      <th> </th>
-
-    </tr>
-    {this.props.reports.map((report)=>(
-      <tr>
-        <td>{report.report_name}</td>
-        <td>{report.report_description}</td>
-        <td>{report.report_type}</td>
-        <td>{report.updated_on}</td>
-        <td>{report.updated_by}</td>
-        <td><button>Edit</button></td>
-      </tr>
-      )
-    )}
-  </table>
-  */}
-
-{(this.props.reports.length) &&
-  <TablePagination
-
-              headers={ ["Report Name","Report Description","Report type","Updated On","Updated by",""]}
-              data={ reportFinal }
-              columns="report_name.report_description.report_type.updated_on.updated_by.action"
-              perPageItemCount={4 }
-              totalCount={ this.props.reports.length }
-              arrayOption={ [["size", 'all', ' ']] }
-              partialPageCount={1}
-              nextPageText=">>"
-              prePageText="<<"
-
-  />
+      {// <div className="diagram">
+      //   <div className="pie-chart">
+      //   <h5> Registration status as of </h5>
+      //     <PieChart
+      //       data={[
+      //         { value: registered_length, color: '#E38627' },
+      //         { value: this.props.vendors.length-registered_length, color: '#C13C37' }
+      //
+      //       ]}
+      //       radius={25 }
+      //       cx={50}
+      //       cy={30}
+      //       labels={ true }
+      //
+      //     />
+      //   </div>
+      //   <div className="bar-chart">
+      //   <h5> Vendor Sub groups  </h5>
+      //
+      //     <BarChart
+      //       grid
+      //       data= {data}
+      //       width={0.50*width}
+      //       height={0.30*height}
+      //       margin={margin}
+      //
+      //     />
+      //   </div>
+      // </div>
+    }
+    {
+//   <div className="approvals">
+//     <h5> My pending approvals <span><button onClick={this.openModal}>Show Past Vendor Approvals</button> </span></h5>
+//
+//
+// {(this.props.approvals.length) &&
+//     <TablePagination
+//
+//                 headers={ ["Date","Approval Name","Vendor name","Action"]}
+//                 data={ approvalFinal }
+//                 columns="approval_date.approval_name.vendor_name.action"
+//                 perPageItemCount={ 4 }
+//                 totalCount={ this.props.approvals.length }
+//                 arrayOption={ [["size", 'all', ' ']] }
+//                 partialPageCount={5}
+//                 nextPageText=">>"
+//                 prePageText="<<"
+//
+//     />
+//   }
+//     <Modal
+//       isOpen={this.state.showModal}
+//            contentLabel="onRequestClose Example"
+//            onRequestClose={this.closeModal}
+//            shouldCloseOnOverlayClick={false}
+//            className="Modal"
+//            overlayClassName="Overlay"
+//            >
+//
+//            <h4>Approvals History <span><button onClick={this.closeModal} className="closeButton">x</button> </span></h4>
+//
+// {(this.props.approvals.length) &&
+//     <TablePagination
+//
+//                 headers={ ["Date","Approval Name","Vendor name","Action"]}
+//                 data={ this.props.approvals }
+//                 columns="approval_date.approval_name.vendor_name.approval_status"
+//                 perPageItemCount={ 4 }
+//                 totalCount={ this.props.approvals.length }
+//                 arrayOption={ [["size", 'all', ' ']] }
+//                 partialPageCount={5}
+//                 nextPageText=">>"
+//                 prePageText="<<"
+//
+//
+//     />
+//   }
+//     </Modal>
+//   </div>
+//   <div className="reports">
+//   <h5> My reports </h5>
+//   {(this.props.reports.length) &&
+//   <TablePagination
+//
+//               headers={ ["Report Name","Report Description","Report type","Updated On","Updated by",""]}
+//               data={ reportFinal }
+//               columns="report_name.report_description.report_type.updated_on.updated_by.action"
+//               perPageItemCount={4 }
+//               totalCount={ this.props.reports.length }
+//               arrayOption={ [["size", 'all', ' ']] }
+//               partialPageCount={1}
+//               nextPageText=">>"
+//               prePageText="<<"
+//
+//   />
+// }
+// {this.addEdit()}
+//
+//   </div>
 }
-{this.addEdit()}
-
-  </div>
 </div>
     )
   }

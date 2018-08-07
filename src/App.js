@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import './App.css';
+import {Menu,Dropdown} from 'semantic-ui-react';
+import { Grid, Image, Segment } from 'semantic-ui-react'
 import {Link} from 'react-router-dom'
-import Dropdown from 'react-dropdown'
+
 import logo from './logo.jpg'
 import {Route} from 'react-router-dom'
 import Vendor from './vendor.js'
@@ -17,8 +19,12 @@ class App extends Component {
     vendors:[],
     reports:[],
     status:false,
-    user:''
+    user:'',
+    activeItem:''
   }
+
+handleItemClick = (e, { name }) => this.setState({ activeItem: name })
+
   componentDidMount() {
 
     fetch('http://localhost:3000/approvals')
@@ -67,19 +73,12 @@ class App extends Component {
       <Link to= '/contracting'>Contracting</Link>,
       <Link to= '/compliance'>Compliance</Link>,
       <Link to= '/rep-credential'>Rep Credentialing</Link>
-]
+      ]
+  const activeItem=""
     return (
-  /*    <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
-      */
+
       <div>
+
       <div className="header">
       <img src={logo} alt="logo" width={0.10*width} height={0.06*height}/>
       <div className="login">
@@ -97,67 +96,136 @@ class App extends Component {
       </div>
     <div className="navbar">
     {window.screen.width<=400 &&
-<ul>
-<li><Link to= '/sourcing'>Sourcing</Link></li>
-<li className="dropdown"><Dropdown options={[
-  <Link to= '/'>Vendor Management</Link>,
-  <Link to= '/contracting'>Contracting</Link>,
-  <Link to= '/compliance'>Compliance</Link>,
-  <Link to= '/rep-credential'>Rep Credentialing</Link>]}
-  placeholder="more" /></li>
-<li className="settings"><Link to='/settings'>Settings</Link></li>
-
-
-</ul>
+// <ul>
+// <li><Link to= '/sourcing'>Sourcing</Link></li>
+// <li className="dropdown"><Dropdown options={[
+//   <Link to= '/'>Vendor Management</Link>,
+//   <Link to= '/contracting'>Contracting</Link>,
+//   <Link to= '/compliance'>Compliance</Link>,
+//   <Link to= '/rep-credential'>Rep Credentialing</Link>]}
+//   placeholder="more" /></li>
+// <li className="settings"><Link to='/settings'>Settings</Link></li>
+//
+//
+// </ul>
+    <Menu>
+    <Menu.Item><Link to= '/sourcing'>Sourcing</Link></Menu.Item>
+    <Menu.Item horiontal><Dropdown item text='More'>
+      <Dropdown.Menu>
+        <Dropdown.Item><Link to= '/'>Vendor Management</Link></Dropdown.Item>
+        <Dropdown.Item><Link to= '/contracting'>Contracting</Link></Dropdown.Item>
+        <Dropdown.Item><Link to= '/compliance'>Compliance</Link></Dropdown.Item>
+        <Dropdown.Item> <Link to= '/rep-credential'>Rep Credentialing</Link></Dropdown.Item>
+      </Dropdown.Menu>
+    </Dropdown>
+      </Menu.Item>
+      <Menu.Item><Link to='/settings'>Settings</Link></Menu.Item>
+    </Menu>
     }
     {
       window.screen.width>400 && window.screen.width<=600 &&
-  <ul>
-  <li><Link to= '/sourcing'>Sourcing</Link></li>
-  <li><Link to= '/'>Vendor Management</Link></li>
+  // <ul>
+  // <li><Link to= '/sourcing'>Sourcing</Link></li>
+  // <li><Link to= '/'>Vendor Management</Link></li>
+  //
+  // <li className="dropdown"><Dropdown className="dropdown" options={[
+  //   <Link to= '/contracting'>Contracting</Link>,
+  // <Link to= '/compliance'>Compliance</Link>,
+  // <Link to= '/rep-credential'>Rep Credentialing</Link>]}
+  // placeholder="More"/></li>
+  // <li  className="settings"><Link to='/settings'>Settings</Link></li>
+  //
+  // </ul>
+  <Menu>
+  <Menu.Item><Link to= '/sourcing'>Sourcing</Link></Menu.Item>
+  <Menu.Item><Link to= '/'>Vendor Management</Link></Menu.Item>
+  <Menu.Item horiontal><Dropdown item text='More'>
+    <Dropdown.Menu>
+      <Dropdown.Item><Dropdown item text='Contracts'>
+      <Dropdown.Menu>
+          <Dropdown.Item> <Link to= '/contracting/search_contracts'>Search Contracts</Link></Dropdown.Item>
+          <Dropdown.Item> <Link to= '/contracting/my_calendar'>My calendar</Link></Dropdown.Item>
+          <Dropdown.Item> <Link to= '/contracting/add_contract'>Add Contract</Link></Dropdown.Item>
+        </Dropdown.Menu>
+        </Dropdown></Dropdown.Item>
+      <Dropdown.Item><Link to= '/compliance'>Compliance</Link></Dropdown.Item>
+      <Dropdown.Item> <Link to= '/rep-credential'>Rep Credentialing</Link></Dropdown.Item>
+    </Dropdown.Menu>
+  </Dropdown>
+    </Menu.Item>
+    <Menu.Item><Link to='/settings'>Settings</Link></Menu.Item>
+  </Menu>
 
-  <li className="dropdown"><Dropdown className="dropdown" options={[
-    <Link to= '/contracting'>Contracting</Link>,
-  <Link to= '/compliance'>Compliance</Link>,
-  <Link to= '/rep-credential'>Rep Credentialing</Link>]}
-  placeholder="More"/></li>
-  <li  className="settings"><Link to='/settings'>Settings</Link></li>
-
-  </ul>
     }
     {
       window.screen.width>600 && window.screen.width<=800 &&
-  <ul>
-  <li><Link to= '/sourcing'>Sourcing</Link></li>
-  <li><Link to= '/'>Vendor Management</Link></li>
-  <li><Link to= '/contracting'>Contracting</Link></li>,
-
-  <li className="dropdown"><Dropdown className="dropdown" options={[
-  <Link to= '/compliance'>Compliance</Link>,
-  <Link to= '/rep-credential'>Rep Credentialing</Link>]}
-  placeholder="More"/></li>
-  <li  className="settings"><Link to='/settings'>Settings</Link></li>
-
-  </ul>
+  // <ul>
+  // <li><Link to= '/sourcing'>Sourcing</Link></li>
+  // <li><Link to= '/'>Vendor Management</Link></li>
+  // <li><Link to= '/contracting'>Contracting</Link></li>,
+  //
+  // <li className="dropdown"><Dropdown className="dropdown" options={[
+  // <Link to= '/compliance'>Compliance</Link>,
+  // <Link to= '/rep-credential'>Rep Credentialing</Link>]}
+  // placeholder="More"/></li>
+  // <li  className="settings"><Link to='/settings'>Settings</Link></li>
+  //
+  // </ul>
+  <Menu>
+  <Menu.Item><Link to= '/sourcing'>Sourcing</Link></Menu.Item>
+  <Menu.Item><Link to= '/'>Vendor Management</Link></Menu.Item>
+  <Menu.Item><Dropdown item text='Contracts'>
+  <Dropdown.Menu>
+      <Dropdown.Item> <Link to= '/contracting/search_contracts'>Search Contracts</Link></Dropdown.Item>
+      <Dropdown.Item> <Link to= '/contracting/my_calendar'>My calendar</Link></Dropdown.Item>
+      <Dropdown.Item> <Link to= '/contracting/add_contract'>Add Contract</Link></Dropdown.Item>
+    </Dropdown.Menu>
+    </Dropdown></Menu.Item>
+  <Menu.Item horiontal><Dropdown item text='More'>
+    <Dropdown.Menu>
+      <Dropdown.Item><Link to= '/compliance'>Compliance</Link></Dropdown.Item>
+      <Dropdown.Item> <Link to= '/rep-credential'>Rep Credentialing</Link></Dropdown.Item>
+    </Dropdown.Menu>
+  </Dropdown>
+    </Menu.Item>
+    <Menu.Item><Link to='/settings'>Settings</Link></Menu.Item>
+  </Menu>
     }
     {
       window.screen.width>800 &&
-  <ul>
-  <li><Link to= '/sourcing'>Sourcing</Link></li>
-  <li><Link to= '/'>Vendor Management</Link></li>
-  <li className="dropdown"><Dropdown options={[
-    <Link to= '/contracting/search_contracts'>Search Contracts</Link>,
-    <Link to= '/contracting/my_calendar'>My calendar</Link>,
-    <Link to= '/contracting/add_contract'>Add Contract</Link>
-  ]} placeholder="Contracting"/></li>
+  // <ul>
+  // <li><Link to= '/sourcing'>Sourcing</Link></li>
+  // <li><Link to= '/'>Vendor Management</Link></li>
+  // <li className="dropdown"><Dropdown options={[
+  //   <Link to= '/contracting/search_contracts'>Search Contracts</Link>,
+  //   <Link to= '/contracting/my_calendar'>My calendar</Link>,
+  //   <Link to= '/contracting/add_contract'>Add Contract</Link>
+  // ]} placeholder="Contracting"/></li>
+  //
+  // <li className="dropdown"><Dropdown  options={[
+  // <Link to= '/compliance'>Compliance</Link>,
+  // <Link to= '/rep-credential'>Rep Credentialing</Link>]}
+  // placeholder="More"/></li>
+  // <li  className="settings"><Link to='/settings'>Settings</Link></li>
+  //
+  // </ul>
+  <Menu>
+  <Menu.Item><Link to= '/sourcing'>Sourcing</Link></Menu.Item>
+  <Menu.Item><Link to= '/'>Vendor Management</Link></Menu.Item>
+  <Menu.Item> <Dropdown item text='Contracts'>
+  <Dropdown.Menu>
+      <Dropdown.Item> <Link to= '/contracting/search_contracts'>Search Contracts</Link></Dropdown.Item>
+      <Dropdown.Item> <Link to= '/contracting/my_calendar'>My calendar</Link></Dropdown.Item>
+      <Dropdown.Item> <Link to= '/contracting/add_contract'>Add Contract</Link></Dropdown.Item>
+    </Dropdown.Menu>
+    </Dropdown>
+    </Menu.Item>
+  <Menu.Item><Link to= '/compliance'>Compliance</Link></Menu.Item>
+  <Menu.Item><Link to= '/rep-credential'>Rep Credentialing</Link></Menu.Item>
 
-  <li className="dropdown"><Dropdown  options={[
-  <Link to= '/compliance'>Compliance</Link>,
-  <Link to= '/rep-credential'>Rep Credentialing</Link>]}
-  placeholder="More"/></li>
-  <li  className="settings"><Link to='/settings'>Settings</Link></li>
+    <Menu.Item><Link to='/settings'>Settings</Link></Menu.Item>
+  </Menu>
 
-  </ul>
     }
 
 
