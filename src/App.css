@@ -1,0 +1,382 @@
+.App {
+  text-align: center;
+}
+.body {
+  width:100vw;
+  height:100vh;
+  font-family:calibri;
+
+}
+
+.header {
+  top:0;
+  position:fixed;
+  background-color:white;
+  z-index:100;
+  width:100vw;
+  height:8vh;
+}
+.login {
+  float:right;
+}
+.reports {
+
+  position:absolute;
+  top:125vh;
+  width:100vw;
+
+}
+.login_page {
+  border:1px solid grey;
+  border-radius:5px 5px 5px 5px;
+  padding:1em;
+  position:absolute;
+  left:25vw;
+  width:50vw;
+  right:25vw;
+  top:15vh;
+  padding:0px;
+  height:30vh;
+  color:black;
+
+}
+#loginForm {
+  top:7vh;
+  position:absolute;
+  width:100%;
+
+}
+#loginForm input[type=text]{
+  margin:1vw;
+  width:90%;
+
+  padding:0.5vh;
+
+}
+#loginForm input[type=checkbox]{
+  display:inline;
+margin:1vw;
+}
+#loginForm h6 {
+  display:inline;
+}
+#submit {
+  right:0;
+  position:absolute;
+  background-color:#E38627;
+  margin-right:2vw;
+  color:white;
+  padding:1vw;
+  border:none;
+bottom:1vh;
+border-radius: 3px;
+}
+#loginForm input {
+  display:block;
+  margin:1vw;
+}
+.loginHeading {
+  background:#c7c5c5;
+  top:0;
+  position:absolute;
+  width:50vw;
+  display:flex;
+
+  padding:1.5vh;
+  box-sizing:border-box;
+}
+.loginHeading h6{
+  display:inline;
+  right:0;
+  position:absolute;
+  margin:0;
+
+}
+.loginHeading h4 {
+  margin:0;
+}
+.approvals {
+  width:100vw;
+  position:absolute;
+  top:45vh;
+  height:55vh;
+/*  overflow-y:scroll;*/
+}
+.approvals h5 , .reports h5{
+  width:100vw;
+  background: #c7c5c5;
+  /*background:linear-gradient(to right, grey, white);*/
+  padding:10px;
+box-sizing:border-box;
+}
+.content table td,.Modal table td {
+  width:100vw;
+  border: 1px solid grey;
+  text-align:left;
+  color:#1e96bb;
+
+
+}
+.content table,.Modal table {
+    border-collapse:collapse;
+}
+.content td, .Modal td {
+padding:0.5vw;
+  border: 1px solid grey;
+
+}
+.approvals tr:nth-child(odd) ,.reports tr:nth-child(odd),.contracts tr:nth-child(odd), .Modal tr:nth-child(odd){
+  background-color: #f2f2f2;
+}
+.approvals th,.reports th,.contracts th, .Modal th {
+  padding:1vw;
+  border: 1px solid grey;
+  font-weight:bold;
+  background-color:white;
+
+}
+.approvals ul, .approvals li ,.reports ul, .reports li,.Modal ul, .Modal li{
+  display:inline;
+  padding-left:0;
+}
+.approvals li button, .reports li button, .Modal li button {
+  background-color:white;
+  padding:0.5em;
+
+  border:1px solid #c7c5c5;
+
+}
+.approvals  button, .reports  button{
+
+  background-color:#E38627;
+  margin-right:2vw;
+  color:white;
+  padding:0.5em;
+  border:none;
+  border-radius: 3px;
+
+}
+.clearfix {
+  margin-top:0.5em;
+}
+.closeButton{
+  float:right;
+  display:block;
+}
+.content {
+  position:absolute;
+  top:16vh;
+  width:100vw;
+
+}
+.content h3 {
+  background-color:#c7c5c5;
+  padding:0.08vw;
+}
+.diagram{
+
+
+  position:absolute;
+  margin:0px;
+  width:100vw;
+
+  height:45vh;
+  display:flex;
+  flex-wrap:wrap;
+
+}
+.pie-chart {
+  width:30vw;
+  height:45vh;
+  margin:0px;
+  border:1px solid black;
+  margin-right:5vw;
+}
+.bar-chart{
+  padding:0px;
+  width:60vw;
+  border:1px solid black;
+}
+.bar-chart rect {
+  fill:#9dbfea;
+  stroke:#7b99bf;
+}
+.bar-chart  .domain{
+  display:none;
+}
+.bar-chart h5, .pie-chart h5 {
+  background:#c7c5c5;
+/*background:linear-gradient(to right, grey, white);*/
+margin-top:0;
+padding:10px;
+}
+
+.bar-chart .bar{
+  background-color:#c7c5c5;
+}
+.paginationClassName{
+  color:black;
+}
+.Modal {
+  position: absolute;
+    top: 20vh;
+    left: 10vw;
+    right: 10vw;
+    bottom: 20vh;
+    border: 1px solid rgb(204, 204, 204);
+    background: rgb(255, 255, 255);
+    overflow: auto;
+    border-radius: 4px;
+    outline: none;
+    padding: 20px;
+}
+.Overlay{
+  position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+background-color: rgba(0,0,0,0.4);
+}
+.ReactModalPortal {
+  top:16vh;
+}
+ .navbar {
+   position:fixed;
+   top: 8vh;
+   background-color:#1972bf;
+   height:8vh;
+   width:100vw;
+   z-index:1;
+
+ padding-top:0;
+ padding-bottom:0;
+
+ }
+ .navbar ul {
+   margin:0px;
+height:8vh;
+padding:0;
+
+ }
+ .navbar  li {
+   display:inline;
+  float:left;
+   /*background:linear-gradient(to right, #baefe6,#baefe6);*/
+   background-color:#1972bf;
+   color:white;
+
+   height:8vh;
+   padding:1em;
+   box-sizing:border-box;
+
+ }
+ .navbar a {
+   color:white;
+   text-decoration: none;
+ }
+ .dropdown {
+   background-color:#1972bf;
+   width:30vw;
+
+ float:left;
+
+ }
+ .Dropdown-root{
+     margin:0;
+     width:25vw;
+     height:8vh;
+     color:white;
+
+     position:absolute;
+     top:0;
+     box-sizing:border-box;
+     padding:1em;
+     padding-left:0;
+
+ }
+ .Dropdown-control{
+   width:30vw;
+   margin:0;
+ }
+ .Dropdown-placeholder {
+   height:6vh;
+ }
+ .Dropdown-menu{
+   width:30vw;
+   margin:0px;
+   color:black;
+   background-color:grey;
+
+ }
+.add_contract_form input{
+  width:100vw;
+  padding:0.5em;
+}
+
+ .settings {
+   float:right;
+   position:absolute;
+ }
+ .contracts {
+   width:100%;
+   top:16vh;
+   position:absolute;
+ }
+ .contracts input {
+   width:100vw;
+ }
+ .footer table {
+   border:none;
+   top:60vh;
+   position:absolute;
+   width:100%;
+   color:white;
+   background-color:black;
+ }
+ .footer table td {
+   border:none;
+   text-align:center;
+   color:white;
+
+ }
+ .footer table th {
+   padding:2vh;
+
+ }
+@keyframes App-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+@media screen and (max-width:400px) {
+.content {
+  font-size:10px;
+}
+.reports {
+  top:80vh;
+}
+}
+@media screen and (max-width:600px) and (min-width:401px) {
+.content,.Modal {
+  font-size:12px;
+}
+.reports {
+  top:90vh;
+}
+}
+@media screen and (max-width:800px) and (min-width:601px) {
+.content, .Modal {
+  font-size:15px;
+}
+.reports {
+  top:90vh;
+}
+}
+@media screen and (min-width:801px) {
+.content, .Modal {
+  font-size:18px;
+}
+.reports {
+  top:100vh;
+}
+}

@@ -1,0 +1,30 @@
+{
+  "name": "capstone-stage2",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "axios": "^0.18.0",
+    "escape-string-regexp": "^1.0.5",
+    "json-server": "^0.14.0",
+    "react": "^16.4.1",
+    "react-axios": "^2.0.0",
+    "react-bar-chart": "^0.1.2",
+    "react-dom": "^16.4.1",
+    "react-dropdown": "^1.5.0",
+    "react-js-pagination": "^3.0.2",
+    "react-minimal-pie-chart": "^3.0.2",
+    "react-modal": "^3.5.1",
+    "react-pagination-table": "^2.0.2",
+    "react-router-dom": "^4.3.1",
+    "react-scripts": "1.1.4",
+    "react-simple-pie-chart": "^0.5.0",
+    "sort-by": "^1.2.0"
+
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "json:server": "json-server --watch src/data.json",
+    "eject": "react-scripts eject"
+  }
+}
